@@ -60,33 +60,31 @@ unsigned int zamien_na_liczbe(const char* zrodlo) {
 }
 
 int main(int argc, char** argv) {
-	if(!(argc==1 || argc==2)) {
-		cerr << "Nieodpowiednia liczba argumentow.\nPoprawne uzycie: ./nazwa <tekstLiczba>*, * - argument opcjonalny\n";
-		return -1;
-	}
-	
 	unsigned jakas_liczba = 6572;
-	
-	cout << doklej_do_liczby(jakas_liczba, 5) << endl;
-	
-	cout << doklej_do_liczby(jakas_liczba, 1, false) << endl;
-	
-	unsigned jakas_druga_liczba = zamien_na_liczbe("1234");
-	cout << jakas_druga_liczba << endl;
-	
-	jakas_druga_liczba = zamien_na_liczbe("1ert234");
-	cout << jakas_druga_liczba << endl;
-	
-	char* zrodlo = nullptr;
-	
-	if(argc==1) {
-		cout << "Nie podano tekstu reprezentujacego liczby. Podaj ciag znakow: ";
-		cin >> zrodlo;
-	} else {
-		zrodlo = argv[1];
-	}
-	
-	cout << "Tekst " << zrodlo << " zamieniony na liczbe: " << zamien_na_liczbe(zrodlo) << '\n';
-	
-	return 0;
+    cout << doklej_do_liczby(jakas_liczba,5) << endl;
+    //56572
+    cout << doklej_do_liczby(jakas_liczba,1,false) << endl;
+    //65721
+    unsigned jakas_druga_liczba = zamien_na_liczbe("1234");
+    cout << jakas_druga_liczba << endl;
+    //1234
+    jakas_druga_liczba = zamien_na_liczbe("1ert234");
+    cout << jakas_druga_liczba << endl;
+    //1000234
+
+    char* ciag = new char[100];
+
+    if (argc!=2) {
+        cout << "\nNie podano argumentow przy uruchomieniu programu, Prosze podac ciag znakow:\n";
+        cin >> ciag;
+    }
+
+    if (argc==2) {
+        ciag = argv[1];
+    }
+
+    cout << "\n" << zamien_na_liczbe(ciag);
+    delete[] ciag;
+
+    return 0;
 }
