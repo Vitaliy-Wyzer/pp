@@ -8,7 +8,6 @@ void wypisz_tablice_2d(unsigned int** tab_2d, unsigned int wiersze, unsigned int
     for (unsigned int i = 0; i < wiersze; ++i) {
         for (unsigned int j = 0; j < kolumny; ++j) {
             cout << "[" << tab_2d[i][j] << "]";
-            if (j < kolumny - 1) cout << " ";
         }
         cout << endl;
     }
@@ -52,16 +51,27 @@ unsigned int** statystyki(const string* napisy, unsigned int rozmiar) {
     return wynik;
 }
 
-int main() {
-    string napisy[] = {"ala ma", "kota", "abcdefghijklmnopqrstuvwxyz"};
-    unsigned int** statsy = statystyki(napisy, 3);
-    wypisz_tablice_2d(statsy, 3, 26);
+int main(int argc, char** argv) {
+    if (argc!=5) {
+        cerr << "Podano malo argumentow: <napis1> <napis2> <napis3> <znak>";
+        // ./name "ala ma" "kota" "abcdefghijklmnopqrstuvwxyz" 'd'
+        return -1;
+    }
+    unsigned n = 3;
+    string napisy[n] = {argv[1], argv[2], argv[3]};
+    unsigned int** statsy = statystyki(napisy, n);
+    wypisz_tablice_2d(statsy, n, 26);
 
     // Zwolnienie pamięci
     for (unsigned int i = 0; i < 3; ++i) {
         delete[] statsy[i];
     }
     delete[] statsy;
+
+    // додаткове завдання з лабки: вивести індекс символу
+    char znak = argv[4][0]; // argv[4] -> char array (tablica znaków), argv[4][0] -> char
+    cout << "\nZnak '" << znak << "' ma indeks: " << znak_na_numer(znak) << endl;
+
 
     return 0;
 }
