@@ -1,6 +1,7 @@
 #include <iostream>
 
 // yes, i dont use namespace std.
+// pd in the name of file mean - Partly done. It has no "determinant" and "inverse_matrix" funcs
 
 int** utworz(const int n, const int m) {
     // tworzenie dynamicznej 2d tablicy
