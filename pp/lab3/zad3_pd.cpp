@@ -122,11 +122,22 @@ void transponowanie(int** A, const int m, const int n, int** &C) {
     }
 }
 
+void tabliczka(int N,int M){
+	int** tab = utworz(N,M);
+	for(int i = 0;i<N;i++){
+		for(int j=0;j<M;j++){
+			tab[i][j] = (i+1)*(j+1);
+		}
+    }
+	wypisz(tab,N,M);	
+	usun(tab,N);	
+}	
+
 
 
 int main() {
 
-    int n, m, p, q, a, b;
+    int n, m, p, q, a, b, N, M;
 
     do {
         std::cout << "Wpisz ilosc wierszow A:\n";
@@ -158,17 +169,23 @@ int main() {
     
         if(!suma(A, m, n, B, p, q, C)){
             std::cerr << "Macierze maja nieprawidlowe wymiary - brak sumy" << std::endl;
+			C = nullptr;
         }
         else{
             std::cout << "suma macierzy" << std::endl;
             wypisz(C, n, m);
+            usun(C, n);
+			C = nullptr;
         }
 
         if(!roznica(A, m, n, B, p, q, C)){
             std::cerr << "Macierze maja nieprawidlowe wymiary - brak roznicy" << std::endl;
+			C = nullptr;
         } else{
             std::cout << "roznica macierzy" << std::endl;
             wypisz(C, n, m);
+            usun(C, n);
+			C = nullptr;
         }
 
         
@@ -178,12 +195,23 @@ int main() {
         else{
             std::cout << "iloczyn macierzy" << std::endl;
             wypisz(C, n, q);
+            usun(C, n);
+			C = nullptr;
         }
         std::cout << "Macierz przed transponowaniem:" << std::endl;
         wypisz(A, n, m);
         transponowanie(A, n, m, C);
         std::cout << "Macierz po transponowaniu:" << std::endl;
         wypisz(C, m, n);
+        usun(C, n);
+        C = nullptr;
+
+        std::cout << "Podaj N i M dla tabliczki mnożenia\n";
+        std::cout << "N:\n";
+        std::cin >> N;
+        std::cout << "M:\n";
+        std::cin >> M;
+        tabliczka(N, M);
     
     } else{
         std::cerr << "Nieprawidlowe rozmiary macierzy" << std::endl;
@@ -193,5 +221,5 @@ int main() {
 
     usun(A, n);
     usun(B, p);
-    usun(C, n);
 }
+
