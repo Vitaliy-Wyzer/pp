@@ -24,9 +24,9 @@ void wypisz(float*t, const int n) {
 }
 
 int mail(std::string str) {
-    int pos = str.find('@');
+    size_t pos = str.find('@');
     if (pos != std::string::npos) {
-        return pos;
+        return static_cast<int>(pos);
     }
     return -1;
 }
@@ -77,9 +77,16 @@ int main(int argc, char** argv) {
     min = atof(argv[1]);
     max = atof(argv[2]);
 
+    if (min >= 0 || max <0 ) {
+        std::cerr << "trzeba ujemny min i dodatni max\n";
+        return -1;
+    }
+
     int n;
-    std::cout << "Prosze podac rozmiar tablicy:\n";
-    std::cin >> n;
+    do {
+        std::cout << "Prosze podac rozmiar tablicy:\n";
+        std::cin >> n;
+    } while (n<1);
 
     float* t = nullptr;
     utworz(t, n);
