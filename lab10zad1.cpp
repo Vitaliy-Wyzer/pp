@@ -47,7 +47,7 @@ sAuto wczytaj(sAuto (*wfun)(const string, const string, const int, const char, c
     cin >> model;
     cout << "Podaj rok produkcji: ";
     cin >> rok;
-    cout << "Podaj rodzaj skrzyni biegow: ";
+    cout << "Podaj rodzaj skrzyni biegow (A/M): ";
     cin >> skrzynia;
     cout << "Podaj pojemnosc silnika: ";
     cin >> pojemnosc;
