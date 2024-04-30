@@ -124,6 +124,7 @@ int main(int argc, char** argv) {
     if (argc != 2) {
         cerr << "Podaj ilość aut: <ilosc>\n";
         return -1;
+        // valgrind --leak-check=full ./nazwa <ilosc>
     }
 
     short rozmiar = atoi(argv[1]);
