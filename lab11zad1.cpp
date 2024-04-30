@@ -16,35 +16,71 @@ struct sAuto {
 // Function to read data for a single car by reference
 bool wczytaj(sAuto& Auto) {
     cout << "Podaj nazwę: ";
-    cin >> Auto.nazwa;
+    if(!(cin >> Auto.nazwa)) {
+        cerr << "Blad pobierania nazwy samochodu";
+        return 0;
+    }
     cout << "Podaj model: ";
-    cin >> Auto.model;
+    if(!(cin >> Auto.model)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj rok produkcji: ";
-    cin >> Auto.rok;
+    if(!(cin >> Auto.rok)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj rodzaj skrzyni biegów (A | M): ";
-    cin >> Auto.skrzynia;
+    if(!(cin >> Auto.skrzynia)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj pojemność: ";
-    cin >> Auto.pojemnosc;
+    if(!(cin >> Auto.pojemnosc)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj moc silnika: ";
-    cin >> Auto.moc;
-    return true;
+    if(!(cin >> Auto.moc)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
+    return 1;
 }
 
 // Function to read data for a single car by pointer
 bool wczytaj(sAuto* Auto) {
     cout << "Podaj nazwę: ";
-    cin >> Auto->nazwa;
+    if(!(cin >> Auto->nazwa)) {
+        cerr << "Blad pobierania nazwy samochodu";
+        return 0;
+    }
     cout << "Podaj model: ";
-    cin >> Auto->model;
+    if(!(cin >> Auto->model)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj rok produkcji: ";
-    cin >> Auto->rok;
+    if(!(cin >> Auto->rok)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj rodzaj skrzyni biegów (A | M): ";
-    cin >> Auto->skrzynia;
+    if(!(cin >> Auto->skrzynia)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj pojemność: ";
-    cin >> Auto->pojemnosc;
+    if(!(cin >> Auto->pojemnosc)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
     cout << "Podaj moc silnika: ";
-    cin >> Auto->moc;
-    return true;
+    if(!(cin >> Auto->moc)) {
+        cerr << "Blad pobierania modelu samochodu";
+        return 0;
+    };
+    return 1;
 }
 
 // Function to read data for an array of cars
