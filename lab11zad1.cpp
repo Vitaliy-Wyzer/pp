@@ -184,8 +184,6 @@ int main(int argc, char** argv) {
             selektor(t3, n, lat);
         }
     }
-
-
-
+    
     return 0;
 }
