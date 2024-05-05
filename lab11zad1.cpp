@@ -184,6 +184,10 @@ int main(int argc, char** argv) {
             selektor(t3, n, lat);
         }
     }
-    
+
+    delete [] t1;
+    delete [] t2;
+    delete [] t3;
+
     return 0;
 }
