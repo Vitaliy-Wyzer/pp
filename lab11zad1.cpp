@@ -1,206 +1,191 @@
 #include <iostream>
-#include <string>
 
-using namespace std;
-
-// Structure representing a car
 struct sAuto {
-    string nazwa;
-    string model;
+    std::string nazwa, model;
     int rok;
     char skrzynia;
     float pojemnosc;
     int moc;
 };
 
-// Function to read data for a single car by reference
 bool wczytaj(sAuto& Auto) {
-    cout << "Podaj nazwę: ";
-    if(!(cin >> Auto.nazwa)) {
-        cerr << "Blad pobierania nazwy samochodu";
+    std::cout << "Podaj nazwe: ";
+    if (!(std::cin >> Auto.nazwa)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
     }
-    cout << "Podaj model: ";
-    if(!(cin >> Auto.model)) {
-        cerr << "Blad pobierania modelu samochodu";
+    std::cout << "Podaj model: ";
+    if (!(std::cin >> Auto.model)) {
+        std::cerr << "\nBlad podania modelu\n";
         return 0;
-    };
-    cout << "Podaj rok produkcji: ";
-    if(!(cin >> Auto.rok)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj rok: ";
+    if (!(std::cin >> Auto.rok)) {
+        std::cerr << "\nBlad podania roku\n";
         return 0;
-    };
-    cout << "Podaj rodzaj skrzyni biegów (A | M): ";
-    if(!(cin >> Auto.skrzynia)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj typ skrzyni (A/M): ";
+    if (!(std::cin >> Auto.skrzynia)) {
+        std::cerr << "\nBlad podania typu skrzyni\n";
         return 0;
-    };
-    cout << "Podaj pojemność: ";
-    if(!(cin >> Auto.pojemnosc)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj pojemnosc silnika: ";
+    if (!(std::cin >> Auto.pojemnosc)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
-    };
-    cout << "Podaj moc silnika: ";
-    if(!(cin >> Auto.moc)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj moc silnika: ";
+    if (!(std::cin >> Auto.moc)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
-    };
+    }
     return 1;
 }
 
-// Function to read data for a single car by pointer
 bool wczytaj(sAuto* Auto) {
-    cout << "Podaj nazwę: ";
-    if(!(cin >> Auto->nazwa)) {
-        cerr << "Blad pobierania nazwy samochodu";
+    std::cout << "Podaj nazwe: ";
+    if (!(std::cin >> Auto->nazwa)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
     }
-    cout << "Podaj model: ";
-    if(!(cin >> Auto->model)) {
-        cerr << "Blad pobierania modelu samochodu";
+    std::cout << "Podaj model: ";
+    if (!(std::cin >> Auto->model)) {
+        std::cerr << "\nBlad podania modelu\n";
         return 0;
-    };
-    cout << "Podaj rok produkcji: ";
-    if(!(cin >> Auto->rok)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj rok: ";
+    if (!(std::cin >> Auto->rok)) {
+        std::cerr << "\nBlad podania roku\n";
         return 0;
-    };
-    cout << "Podaj rodzaj skrzyni biegów (A | M): ";
-    if(!(cin >> Auto->skrzynia)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj typ skrzyni (A/M): ";
+    if (!(std::cin >> Auto->skrzynia)) {
+        std::cerr << "\nBlad podania typu skrzyni\n";
         return 0;
-    };
-    cout << "Podaj pojemność: ";
-    if(!(cin >> Auto->pojemnosc)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj pojemnosc silnika: ";
+    if (!(std::cin >> Auto->pojemnosc)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
-    };
-    cout << "Podaj moc silnika: ";
-    if(!(cin >> Auto->moc)) {
-        cerr << "Blad pobierania modelu samochodu";
+    }
+    std::cout << "Podaj moc silnika: ";
+    if (!(std::cin >> Auto->moc)) {
+        std::cerr << "\nBlad podania nazwy\n";
         return 0;
-    };
+    }
     return 1;
 }
 
-// Function to read data for an array of cars
 sAuto* wczytaj(const short n) {
-    sAuto* t = new sAuto[n];
-    for (int i = 0; i < n; ++i) {
-        cout << "Wprowadź dane dla samochodu " << i + 1 << ":" << endl;
-        if (!wczytaj(t[i])) {
-            delete[] t;
-            return nullptr;
-        }
+    sAuto* Auto = new sAuto [n];
+    for (int i=0; i<n; i++) {
+        wczytaj(Auto[i]);
     }
-    return t;
+    return Auto;
 }
 
-// Function to read data for an array of cars by pointer
 bool wczytaj(sAuto* t, const short n) {
-    for (int i = 0; i < n; ++i) {
-        cout << "Wprowadź dane dla samochodu " << i + 1 << ":" << endl;
-        if (!wczytaj(t[i])) {
-            delete[] t;
-            return false;
-        }
+    if (t == 0) {
+        return 0;
     }
-    return true;
+
+    for (int i=0; i<n; i++) {
+        wczytaj(&t[i]);
+    }
+    return 1;
 }
 
-// Function to read data for an array of cars by reference
 bool wczytaj1(sAuto*& t, const short n) {
-    for (int i = 0; i < n; ++i) {
-        cout << "Wprowadź dane dla samochodu " << i + 1 << ":" << endl;
-        if (!wczytaj(&t[i])) {
-            delete[] t;
-            return false;
-        }
+    if (t == 0) {
+        return 0;
     }
-    return true;
-}
 
-// Function to display a single car
-void wypisz(const sAuto* Auto) {
-    cout << Auto->nazwa << "\t" << Auto->model << "\t" << Auto->rok << "\t"
-         << Auto->skrzynia << "\t" << Auto->pojemnosc << "\t" << Auto->moc << endl;
-}
-
-// Function to display an array of cars
-void wypisz(const sAuto* t, const short n) {
-    for (int i = 0; i < n; ++i) {
-        wypisz(&t[i]);
+    for (int i=0; i<n; i++) {
+        wczytaj(t[i]);
     }
+    return 1;
 }
 
-// Function to display cars meeting age criterion
-void selektor(const sAuto* t, const short n, const short ile) {
-    bool jest = false;
-    cout << "Samochody o nie więcej niż " << ile << " lat:" << endl;
-    for (int i = 0; i < n; ++i) {
-        if (2024 - t[i].rok <= ile) {
+bool wypisz(const sAuto* Auto) {
+    if (Auto) {
+        std::cout << Auto->nazwa << "\t" << Auto->model << "\t" << Auto->rok << "\t"
+              << Auto->skrzynia << "\t" << Auto->pojemnosc << "\t" << Auto->moc << "\n";
+    return 1;
+    }
+    return 0;
+}
+
+bool wypisz(const sAuto* t, const short n) {
+    if (t) {
+        for (int i=0; i<n; i++) {
             wypisz(&t[i]);
-            jest = true;
         }
+        return 1;
     }
-    if (!jest) {
-        cout << "Brak samochodów spełniających kryterium." << endl;
-    }
+    return 0;
 }
 
-// Function to free memory allocated for an array of cars
-void usun(sAuto*& tab) {
-    if (tab) {
-        delete[] tab;
-        tab = nullptr;
+void selektor(const sAuto* t, const short n, const short ile) {
+    bool found = false;
+    std::cout << "Samochody o nie wiecej niz " << ile << " lat:\n";
+    for (int i=0; i<n; i++) {
+        if (2024-ile <= t[i].rok) {
+            wypisz(&t[i]);
+            found = true;
+        }
+    }
+    if (!found) {
+        std::cout << "Nie ma samochodow o zadanym kryterium.\n";
     }
 }
 
 int main(int argc, char** argv) {
     if (argc != 2) {
-        cerr << "Podaj ilość aut: <ilosc>\n";
+        std::cerr << "\nProsze podac: <liczba samochodow>\n";
         return -1;
     }
 
-    short rozmiar = atoi(argv[1]);
-    short kryterium;
+    const short n = atoi(argv[1]);
+    short lat;
 
-    sAuto* tab1 = wczytaj(rozmiar);
-    if (tab1 == nullptr) {
-        cerr << "Nie udało się wczytać danych." << endl;
-        return -1;
+    sAuto * t1 = wczytaj(n);
+    if (t1) {
+        if(wypisz(t1, n));
+            std::cout << "\nPodaj kryterium (liczbe lat):";
+            if (!(std::cin >> lat)) {
+                std::cerr << "Blad podania kryterium\n";
+                return -1;
+            }
+            std::cout << std::endl;
+            selektor(t1, n, lat);
+        
     }
-    cout << "Wprowadzone samochody:" << endl;
-    wypisz(tab1, rozmiar);
-    cout << "Podaj ile lat maksymalnie mogą mieć samochody: ";
-    cin >> kryterium;
-    selektor(tab1, rozmiar, kryterium);
-
-    sAuto* tab2 = new sAuto[rozmiar];
-    if (!wczytaj(tab2, rozmiar)) {
-        cerr << "Nie udało się wczytać danych." << endl;
-        return -1;
+    sAuto * t2 = new sAuto [n];
+    if (wczytaj(t2, n)) {
+        if (wypisz(t2, n)) {
+            std::cout << "\nPodaj kryterium (liczbe lat):";
+            if (!(std::cin >> lat)) {
+                std::cerr << "Blad podania kryterium\n";
+                return -1;
+            }
+            std::cout << std::endl;
+            selektor(t2, n, lat);
+        }
     }
-    cout << "Wprowadzone samochody:" << endl;
-    wypisz(tab2, rozmiar);
-    cout << "Podaj ile lat maksymalnie mogą mieć samochody: ";
-    cin >> kryterium;
-    selektor(tab2, rozmiar, kryterium);
-
-    sAuto* tab3 = new sAuto[rozmiar];
-    if (!wczytaj1(tab3, rozmiar)) {
-        cerr << "Nie udało się wczytać danych." << endl;
-        return -1;
+    sAuto *t3 = new sAuto [n];
+    if (wczytaj1(t3, n)) {
+        if (wypisz(t3, n)) {
+            std::cout << "\nPodaj kryterium (liczbe lat):";
+            if (!(std::cin >> lat)) {
+                std::cerr << "Blad podania kryterium\n";
+                return -1;
+            }
+            std::cout << std::endl;
+            selektor(t3, n, lat);
+        }
     }
-    cout << "Wprowadzone samochody:" << endl;
-    wypisz(tab3, rozmiar);
-    cout << "Podaj ile lat maksymalnie mogą mieć samochody: ";
-    cin >> kryterium;
-    selektor(tab3, rozmiar, kryterium);
 
-    usun(tab1);
-    usun(tab2);
-    usun(tab3);
+
 
     return 0;
 }
