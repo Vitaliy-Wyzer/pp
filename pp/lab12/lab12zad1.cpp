@@ -1,77 +1,213 @@
 #include <iostream>
-#include <cmath>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
-struct SPunkt {
-    double x, y;
+struct SProstopadloscian {
+    float dlugosc;
+    float szerokosc;
+    float wysokosc;
 };
 
-struct SProsta {
-    double a, b; // Współczynniki równania y = ax + b
-};
+SProstopadloscian* wczytaj(const char* plik_wej, int& n) {
+    ifstream plik(plik_wej);
+    if (!plik.is_open()) {
+        cerr << "Nie mozna otworzyc pliku." << endl;
+        // thx
+        plik.ignore();
+        plik.close();
+        // thx
+        return nullptr;
+    }
+    plik >> n;
+    SProstopadloscian* prostopadl = new SProstopadloscian[n];
+    for (int i = 0; i < n; ++i) {
+		if(!(plik >> prostopadl[i].dlugosc)){
+		cerr << "Nie udalo sie wczytac dlugosc!" << endl;
+            // thx
+			plik.clear();
+			plik.close();
+			if(prostopadl != nullptr){
+				delete[] prostopadl;
+				prostopadl = nullptr;
+				return prostopadl;
+			}
+            // thx
+		}
+        // thx
+		if(!(plik >> prostopadl[i].szerokosc)){
+		cerr << "Nie udalo sie wczytac szerokosc!" << endl;
+			plik.clear();
+			plik.close();
+			if(prostopadl != nullptr){
+				delete[] prostopadl;
+				prostopadl = nullptr;
+				return prostopadl;
+			}
+        // thx
+		}
+        // thx
+		if(!(plik >> prostopadl[i].wysokosc)){
+		cerr << "Nie udalo sie wczytac wysokosc!" << endl;
+			plik.clear();
+			plik.close();
+			if(prostopadl != nullptr){
+				delete[] prostopadl;
+				prostopadl = nullptr;
+				return prostopadl;
+			}
+		}
+        // thx
+	}
+    // thx
+	plik.clear();
+    // thx
+	plik.close();
+	return prostopadl;
+}
 
-struct SOkrag {
-    double a, b, r; // Środek (a,b) i promień r
-};
+float pole(const SProstopadloscian& p) {
+    return 2 * (p.dlugosc * p.szerokosc + p.dlugosc * p.wysokosc + p.szerokosc * p.wysokosc);
+}
 
-struct SRownanie {
-    double a, b, c; // Współczynniki równania kwadratowego ax^2 + bx + c
-};
+int znajdz_pole(const SProstopadloscian* p, const int n) {
+    int indeks = 0;
+    // camel case?
+    float maxPole = pole(p[0]);
+    for (int i = 1; i < n; ++i) {
+        float aktPole = pole(p[i]);
+        if (aktPole > maxPole) {
+            maxPole = aktPole;
+            indeks = i;
+        }
+    }
+    return indeks;
+}
 
-int rozw_rown(const SRownanie& r, SPunkt& p1, SPunkt& p2) {
-    double delta = r.b * r.b - 4 * r.a * r.c;
-    cout << delta << "\n";
-    if (delta > 0) {
-        p1.x = (-r.b + sqrt(delta)) / (2 * r.a);
-        cout << p1.x << "\n";
-        p2.x = (-r.b - sqrt(delta)) / (2 * r.a);
-        p1.y = p2.y = 0;
-        return 2; // Dwa miejsca zerowe
-    } else if (delta == 0) {
-        p1.x = p2.x = -r.b / (2 * r.a);
-        p1.y = p2.y = 0;
-        return 1; // Jedno miejsce zerowe
-    } else {
-        return 0; // Brak miejsc zerowych
+float objetosc(const SProstopadloscian& p) {
+    return p.dlugosc * p.szerokosc * p.wysokosc;
+}
+
+float znajdz_objetosc(const SProstopadloscian* p, const int n) {
+    // camel case?
+    float maxObj = objetosc(p[0]);
+    for (int i = 1; i < n; ++i) {
+        float aktObj = objetosc(p[i]);
+        if (aktObj > maxObj) {
+            maxObj = aktObj;
+        }
+    }
+    return maxObj;
+}
+
+bool wysokosc(const SProstopadloscian& p1, const SProstopadloscian& p2) {
+    return p1.wysokosc > p2.wysokosc;
+}
+
+void sortuj(SProstopadloscian* p, const int n, bool (*wfun)(const SProstopadloscian&, const SProstopadloscian&)) {
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (wfun(p[j], p[j + 1])) {
+                SProstopadloscian temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
     }
 }
 
-int pkt_przec(const SProsta& p, const SOkrag& o, SPunkt& p1, SPunkt& p2) {
-    SRownanie r;
-    r.a = 1 + p.a * p.a;
-    r.b = 2 * p.a * (p.b - o.b) - 2 * o.a;
-    r.c = o.b * o.b - o.r * o.r + o.a * o.a - 2 * p.b * o.b + p.b * p.b;
-
-    int result = rozw_rown(r, p1, p2);
-    return result;
-}
-
-bool czy_prostopadle(const SProsta& p1, const SProsta& p2) {
-    return p1.a * p2.a == -1; // Sprawdzamy, czy iloczyn wspolczynnikow kierunkowych równa się -1
-}
-
-int main() {
-    SPunkt p1 = {0, 0}, p2 = {0, 0};
-    SProsta prosta1 = {-1.0, 3.0};
-    SProsta prosta2 = {1.0, -3.0};
-    SOkrag okrag = {0.0, 1.0, 2.0};
-    
-    int pier1 = pkt_przec(prosta1, okrag, p1, p2);
-    if (pier1 == 2) {
-        cout << "Prosta przecina okrag w punktach:" << endl;
-        cout << "(" << p1.x << ", " << p1.y << ")" << endl;
-        cout << "(" << p2.x << ", " << p2.y << ")" << endl;
-    } else if (pier1 == 1) {
-        cout << "Prosta jest styczna do okregu w punkcie:" << endl;
-        cout << "(" << p1.x << ", " << p1.y << ")" << endl;
-    } else if (pier1 == 0) {
-        cout << "Prosta nie przecina okregu" << endl;
-    } else {
-        cout << "Brak rozwiązania - to nie jest rownanie kwadratowe" << endl;
+void wypisz(const SProstopadloscian* p) {
+    for (int i = 0; i < 5; ++i) {
+        cout << "Dlugosc " << p[i].dlugosc << "\tSzerokosc " << p[i].szerokosc << "\tWysokosc " << p[i].wysokosc << endl;
     }
-    
-    cout << "Czy proste sa prostopadle? " << boolalpha << czy_prostopadle(prosta1, prosta2) << endl;
+}
 
+void wypisz(const SProstopadloscian* p, const int n) {
+    for (int i = 0; i < n; ++i) {
+        cout <<  "Dlugosc " << p[i].dlugosc << "\tSzerokosc " << p[i].szerokosc << "\tWysokosc " << p[i].wysokosc << endl;
+    }
+}
+
+bool wypisz(const SProstopadloscian& p, ofstream& fout) {
+    // wow
+	if(!(fout << p.dlugosc)){
+		cerr << "Nie udalo sie wczytac dlugosc!" << endl;
+		fout.clear();
+		fout.close();
+	}
+	if(!(fout << p.szerokosc)){
+		cerr << "Nie udalo sie wczytac szerokosc!" << endl;
+		fout.clear();
+		fout.close();
+	}
+	if(!(fout << p.wysokosc)){
+		cerr << "Nie udalo sie wczytac wysokosc!" << endl;
+		fout.clear();
+		fout.close();
+	}
+	else
+		fout << p.dlugosc << "\t" << p.szerokosc << "\t" << p.wysokosc << endl;
+    // wow
+    return 1;
+}
+
+bool wypisz(const SProstopadloscian* p, const int n, const string& plik_wyj) {
+    ofstream fout(plik_wyj);
+    if (!fout.is_open()) {
+        cerr << "Nie mozna otworzyc pliku." << endl;
+        // thx
+        fout.clear();
+        fout.close();
+        // thx
+        return false;
+    }
+    for (int i = 0; i < n; ++i) {
+        if (!wypisz(p[i], fout)) {
+			cerr << "Blad podczas zapisu danych" << endl;
+            // thx
+			fout.clear();
+			fout.close();
+            // thx
+            return false;
+        }
+    }
+    fout << "\n";
+    // clear? ;(
+    fout.close();
+    return true;
+}
+
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        cerr << "Podaj: " << argv[0] << " <plik_wejsciowy> <plik_wyjsciowy>" << endl;
+        return 1;
+    }
+    int n = 0;
+    SProstopadloscian* p = wczytaj(argv[1], n);
+    if (p) {
+        wypisz(p);
+        if (wypisz(p, n, argv[2])) {
+            cout << "Zapisano pomyslnie do pliku." << endl;
+        } else {
+            cerr << "Cos poszlo nie tak!" << endl;
+        }
+        cout << "Prostopadloscian o najwiekszym polu powierzchni znajduje sie na pozycji: " << znajdz_pole(p, n) << endl;
+        cout << "Najwieksza objetosc prostopadloscianu wynosi: " << znajdz_objetosc(p, n) << endl;
+        sortuj(p, n, wysokosc);
+        cout << "Posortowane wzgledem wysokosci prostopadlosciany:" << endl;
+        wypisz(p, n);
+        if (wypisz(p, n, argv[2])) {
+            cout << "Zapisano pomyslnie do pliku." << endl;
+        } else {
+            cerr << "Cos poszlo nie tak!" << endl;
+        }
+        if(p != nullptr){
+			delete[] p;
+			p = nullptr;
+		}
+    } else {
+        cerr << "Blad podczas wczytywania danych." << endl;
+    }
     return 0;
 }
