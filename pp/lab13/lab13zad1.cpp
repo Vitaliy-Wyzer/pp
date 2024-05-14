@@ -10,7 +10,7 @@ struct SWielomian {
 };
 
 float losuj(const float min, const float max) {
-    return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+    return (min + 1) + (((float) rand()) / (float) RAND_MAX) * (max - (min + 1));
 }
 
 float* wspolczynniki(SWielomian& w, const unsigned int stopien = 1, const float min = -5.5, const float max = 5.5) {
