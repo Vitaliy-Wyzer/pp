@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
             wypisz(w);
 
             usun(w);
-        } // maybe there must be an else ffor stopien = 1
+        } // maybe there must be an else for stopien = 1
     } else {
         
         cout << "Podano zla wartosc min, max lub stopien. ";
