@@ -97,6 +97,6 @@ int main(int argc, char* argv[]) {
         wypisz(w);
     }
 
-    usun(w)
+    usun(w);
     return 0;
 }
