@@ -16,189 +16,192 @@ struct SLista {
     string nazwa_listy;
     SOsoba* osoby;
     int liczba_osob;
-};
 
-bool wczytaj(SLista::SOsoba& os, ifstream& fin) {
-    if(!fin.good()) {
-        cerr << "Blad strumienia wejsciowego.\n";
-        fin.ignore();
-        fin.clear();
-        fin.close();
-        return false;
-    }
-    fin >> os.imie;
-    if(!fin.good()) {
-        cerr << "Blad wczytywania imienia.\n";
-        fin.ignore();
-        fin.clear();
-        fin.close();
-        return false;
-    }
-    fin >> os.rok;
-    if(!fin.good()) {
-        cerr << "Blad wczytywania roku urodzenia.\n";
-        fin.ignore();
-        fin.clear();
-        fin.close();
-        return false;
-    }
-    fin >> os.znak;
-    if(!fin.good()) {
-        cerr << "Blad wczytywania znaku zodiaku.\n";
-        fin.ignore();
-        fin.clear();
-        fin.close();
-        return false;
-    }
-    fin >> os.liczba;
-    if(!fin.good()) {
-        cerr << "Blad wczytywania szczesliwej liczby.\n";
-        fin.ignore();
-        fin.clear();
-        fin.close();
-        return false;
-    }
-    return true;
-}
-
-bool wypisz(SLista::SOsoba& os, ostream& out = cout) {
-    if(!out.good()) {
-        cerr << "Blad strumienia wyjsciowego.\n";
-        out.clear();
-        return false;
-    }
-    out << os.imie;
-    if(!out.good()) {
-        cerr << "Blad wypisywania imienia.\n";
-        out.clear();
-        return false;
-    }
-    out << '\t' << os.rok;
-    if(!out.good()) {
-        cerr << "Blad wypisywania roku urodzenia.\n";
-        out.clear();
-        return false;
-    }
-    out << '\t' << os.znak;
-    if(!out.good()) {
-        cerr << "Blad wypisywania znaku zodiaku.\n";
-        out.clear();
-        return false;
-    }
-    out << '\t' << os.liczba << endl;
-    if(!out.good()) {
-        cerr << "Blad wypisywania szczesliwej liczby.\n";
-        out.clear();
-        return false;
-    }
-    return true;
-}
-
-bool wczytaj(SLista& l, ifstream& in) {
-    if(!in.good()) {
-        cerr << "Blad otwarcia pliku wejsciowego.\n";
-        in.ignore();
-        in.clear();
-        in.close();
-        return false;
-    }
-    in >> l.nazwa_listy;
-    if(!in.good()) {
-        cerr << "Blad wczytywania nazwy listy.\n";
-        in.ignore();
-        in.clear();
-        in.close();
-        return false;
-    }
-    in >> l.liczba_osob;
-    if(!in.good()) {
-        cerr << "Blad wczytywania liczby osob.\n";
-        in.ignore();
-        in.clear();
-        in.close();
-        return false;
-    }
-    l.osoby = new SLista::SOsoba[l.liczba_osob];
-    for(int i = 0; i < l.liczba_osob; ++i) {
-        wczytaj(l.osoby[i], in);
-    }
-
-    return true;
-}
-
-bool wypisz(SLista& l, ostream& out = cout) {
-    if(!out.good()) {
-        cerr << "Blad strumienia.\n";
-        out.clear();
-        return false;
-    }
-    out << l.nazwa_listy << endl;
-    if(!out.good()) {
-        cerr << "Blad wypisywania nazwy listy.\n";
-        out.clear();
-        return false;
-    }
-    out << l.liczba_osob << endl;
-    if(!out.good()) {
-        cerr << "Blad wypisywania liczby osob.\n";
-        out.clear();
-        return false;
-    }
-    for(int i = 0; i < l.liczba_osob; ++i) {
-        if(!wypisz(l.osoby[i], out)) {
-            cerr << "Blad wypisywania " << i + 1 << ". osoby.\n";
+    bool wczytaj(SOsoba& os, ifstream& fin) {
+        if(!fin.good()) {
+            cerr << "Blad strumienia wejsciowego.\n";
+            fin.ignore();
+            fin.clear();
+            fin.close();
             return false;
         }
+        fin >> os.imie;
+        if(!fin.good()) {
+            cerr << "Blad wczytywania imienia.\n";
+            fin.ignore();
+            fin.clear();
+            fin.close();
+            return false;
+        }
+        fin >> os.rok;
+        if(!fin.good()) {
+            cerr << "Blad wczytywania roku urodzenia.\n";
+            fin.ignore();
+            fin.clear();
+            fin.close();
+            return false;
+        }
+        fin >> os.znak;
+        if(!fin.good()) {
+            cerr << "Blad wczytywania znaku zodiaku.\n";
+            fin.ignore();
+            fin.clear();
+            fin.close();
+            return false;
+        }
+        fin >> os.liczba;
+        if(!fin.good()) {
+            cerr << "Blad wczytywania szczesliwej liczby.\n";
+            fin.ignore();
+            fin.clear();
+            fin.close();
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 
-SLista::SOsoba szukaj(SLista& l, const string zodiak) {
-    for(int i = 0; i < l.liczba_osob; ++i) {
-        if(l.osoby[i].znak == zodiak) {
-            return l.osoby[i];
+    bool wypisz(SOsoba& os, ostream& out = cout) {
+        if(!out.good()) {
+            cerr << "Blad strumienia wyjsciowego.\n";
+            out.clear();
+            return false;
+        }
+        out << os.imie;
+        if(!out.good()) {
+            cerr << "Blad wypisywania imienia.\n";
+            out.clear();
+            return false;
+        }
+        out << '\t' << os.rok;
+        if(!out.good()) {
+            cerr << "Blad wypisywania roku urodzenia.\n";
+            out.clear();
+            return false;
+        }
+        out << '\t' << os.znak;
+        if(!out.good()) {
+            cerr << "Blad wypisywania znaku zodiaku.\n";
+            out.clear();
+            return false;
+        }
+        out << '\t' << os.liczba << endl;
+        if(!out.good()) {
+            cerr << "Blad wypisywania szczesliwej liczby.\n";
+            out.clear();
+            return false;
+        }
+        return true;
+    }
+
+    bool wczytaj(SLista& l, ifstream& in) {
+        if(!in.good()) {
+            cerr << "Blad otwarcia pliku wejsciowego.\n";
+            in.ignore();
+            in.clear();
+            in.close();
+            return false;
+        }
+        in >> l.nazwa_listy;
+        if(!in.good()) {
+            cerr << "Blad wczytywania nazwy listy.\n";
+            in.ignore();
+            in.clear();
+            in.close();
+            return false;
+        }
+        in >> l.liczba_osob;
+        if(!in.good()) {
+            cerr << "Blad wczytywania liczby osob.\n";
+            in.ignore();
+            in.clear();
+            in.close();
+            return false;
+        }
+        if(l.liczba_osob<=0) {
+			cerr << "Liczba osob powinna byc wieksza od zera.\n";
+			return false;
+		}
+        l.osoby = new SOsoba[l.liczba_osob];
+        for(int i=0; i<l.liczba_osob; ++i) {
+            wczytaj(l.osoby[i], in);
+        }
+        return true;
+    }
+
+    bool wypisz(SLista& l, ostream& out = cout) {
+        if(!out.good()) {
+            cerr << "Blad strumienia.\n";
+            out.clear();
+            return false;
+        }
+        out << l.nazwa_listy << endl;
+        if(!out.good()) {
+            cerr << "Blad wypisywania nazwy listy.\n";
+            out.clear();
+            return false;
+        }
+        out << l.liczba_osob << endl;
+        if(!out.good()) {
+            cerr << "Blad wypisywania liczby osob.\n";
+            out.clear();
+            return false;
+        }
+        for(int i=0; i<l.liczba_osob; ++i) {
+            if(!wypisz(l.osoby[i], out)) {
+                cerr << "Blad wypisywania " << i + 1 << ". osoby.\n";
+                return false;
+            }
+        }
+        return true;
+    }
+
+    SOsoba szukaj(SLista& l, const string zodiak) {
+        for(int i=0; i<l.liczba_osob; ++i) {
+            if(l.osoby[i].znak == zodiak) {
+                return l.osoby[i];
+            }
+        }
+        cerr << "Nie znaleziono osoby o podanym znaku zodiaku.\n";
+        exit(0);
+    }
+
+    void podzial(SLista& l, ofstream& plik_k, ofstream& plik_m) {
+        for(int i=0; i<l.liczba_osob; ++i) {
+            if(l.osoby[i].imie.back() == 'a' || l.osoby[i].imie.back() == 'A') {
+                if(!wypisz(l.osoby[i], plik_k)) {
+                    cerr << "Napotkano blad.\n";
+                    exit(0);
+                }
+            } else {
+                if(!wypisz(l.osoby[i], plik_m)) {
+                    cerr << "Napotkano blad.\n";
+                    exit(0);
+                }
+            }
         }
     }
-    cerr << "Nie znaleziono osoby o podanym znaku zodiaku.\n";
-    exit(0);
-}
 
-void podzial(SLista& l, ofstream& plik_k, ofstream& plik_m) {
-    for(int i = 0; i < l.liczba_osob; ++i) {
-        if(l.osoby[i].imie.back() == 'a' || l.osoby[i].imie.back() == 'A') {
-            if(!wypisz(l.osoby[i], plik_k)) {
-                cerr << "Napotkano blad.\n";
-                exit(0);
-            }
-        } else {
-            if(!wypisz(l.osoby[i], plik_m)) {
-                cerr << "Napotkano blad.\n";
-                exit(0);
+    void podzial(SLista& l) {
+        for(int i=0; i<l.liczba_osob; ++i) {
+            if(l.osoby[i].liczba %2==0) {
+                if(!wypisz(l.osoby[i])) {
+                    cerr << "Napotkano blad.\n";
+                    exit(0);
+                }
             }
         }
     }
-}
 
-void podzial(SLista& l) {
-    for(int i = 0; i < l.liczba_osob; ++i) {
-        if(l.osoby[i].liczba % 2 == 0) {
-            if(!wypisz(l.osoby[i])) {
-                cerr << "Napotkano blad.\n";
-                exit(0);
-            }
+    void usun() {
+        if(osoby) {
+            delete[] osoby;
+            osoby = nullptr;
         }
     }
-}
-
-void usun(SLista& l) {
-    if(l.osoby) {
-        delete[] l.osoby;
-        l.osoby = nullptr;
-    }
-}
+};
 
 int main(int argc, char** argv) {
-    if(argc != 5) {
+    if(argc!=5) {
         cerr << "Podano nieprawidlowa liczbe argumentow. Prawidlowe uzycie: ./nazwa <nazwaPlikuWejsciowego> <nazwaPlikuWyjsciowegoKobiety> <nazwaPlikuWyjsciowegoMezczyzni> <znakZodiaku>.\n";
         return 1;
     }
@@ -208,20 +211,20 @@ int main(int argc, char** argv) {
     ofstream outfile_m(argv[3]);
 
     SLista lista;
-    if(wczytaj(lista, infile)) {
-        wypisz(lista);
-        SLista::SOsoba osoba = szukaj(lista, argv[4]);
-        wypisz(osoba);
-        podzial(lista, outfile_k, outfile_m);
-    }
+	if(lista.wczytaj(lista, infile)) {
+		lista.wypisz(lista);
+		SLista::SOsoba osoba = lista.szukaj(lista, argv[4]);
+		lista.wypisz(osoba);
+		lista.podzial(lista, outfile_k, outfile_m);
+	}
 
-    podzial(lista);
+	lista.podzial(lista);
 
-    usun(lista);
+	lista.usun();
 
-    infile.close();
-    outfile_k.close();
-    outfile_m.close();
+	infile.close();
+	outfile_k.close();
+	outfile_m.close();
 
-    return 0;
+	return 0;
 }
