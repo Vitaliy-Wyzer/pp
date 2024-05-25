@@ -1,0 +1,6 @@
+Moja_lista
+4
+Jan Nowak 0
+Krystian Kopka 2 Analiza_matematyczna Podstawy_programowania
+Agnieszka Zumba 1 Analiza_matematyczna
+Janusz Zguba 3 Analiza_matematyczna Podstawy_programowania BHP

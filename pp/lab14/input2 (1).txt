@@ -1,0 +1,7 @@
+Moja_lista
+5
+Ala 2012 Koziorozec 8
+Ola 2004 Ryby 11
+Janek 2010 Waga 7
+Kostek 2000 Panna 1
+Zosia 1999 Baran 4
