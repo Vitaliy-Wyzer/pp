@@ -1,0 +1,6 @@
+Moja_lista
+4
+123098 ala@wp.pl 1989 Alicja
+355301 karol@wp.pl 1997 Karol
+482694 koral@onet.pl 2003 Sanislaw
+936581 bratowa@gmail.com 1965 Kamila
