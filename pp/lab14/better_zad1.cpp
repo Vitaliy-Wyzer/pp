@@ -3,8 +3,6 @@
 #include <cstdlib>
 #include <string>
 
-// Author: Sigma
-
 using namespace std;
 
 struct SOsoba {
