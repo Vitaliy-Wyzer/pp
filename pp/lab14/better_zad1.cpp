@@ -3,8 +3,7 @@
 #include <cstdlib>
 #include <string>
 
-// Author: Sigma
-
+// Hope you read it
 using namespace std;
 
 struct SOsoba {
