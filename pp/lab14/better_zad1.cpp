@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <string>
 
+// Author: Sigma
+
 using namespace std;
 
 struct SOsoba {
@@ -149,7 +151,7 @@ bool SLista::wczytaj(SLista& l, ifstream& fin) {
 	}
 	l.osoby = new SOsoba[l.liczba_osob];
 	for(int i=0; i<l.liczba_osob; ++i) {
-
+		// no debug?
 		l.osoby[i] = l.osoby[i].wczytaj(fin);
 	}
 	return true;
@@ -224,7 +226,7 @@ void SLista::podzial(SLista& l, ofstream& fout_k, ofstream& fout_m) {
 int main(int argc, char** argv) {
 	if(argc!=5) {
 		cerr << "Niepoprawna liczba parametrow uruchomienia programu. Prawidlowe uzycie: ./nazwa <nazwaPlikuWejsciowego> <nazwaPlikuWyjsciowegoKobiety> <nazwaPlikuWyjsciowegoMezczyzni> <szukaneId>.\n";
-		return 1;
+		return -1;
 	}
 	
 	ifstream in(argv[1]);
@@ -240,7 +242,7 @@ int main(int argc, char** argv) {
 		out_k.close();
 		out_m.clear();
 		out_m.close();
-		return 5;
+		return -1;
 	}
 	
 	SLista lista;
@@ -250,25 +252,29 @@ int main(int argc, char** argv) {
 		osoba = lista.szukaj(lista, atoi(argv[4]));
 		if(osoba.id!=0) {
 			cout << "\nZnaleziono osobe o podanym id:\n";
+			// debug
 			if(!osoba.wypisz(osoba)) {
 				cerr << "Napotkano blad podczas wypisywania danych osoby.\n";
 				lista.usun();
-				return 2;
+				return -1;
 			}
 			lista.podzial(lista, out_k, out_m);
 		} else {
 			cerr << "Nie znaleziono osoby o podanym id.\n";
+			// usun
 			lista.usun();
-			return 3;
+			return -1;
 		}
+		// usun
 		lista.usun();
 	} else {
+		// debug
 		cerr << "Nastapil blad podczas wczytywania listy.\n";
 		in.ignore();
 		in.clear();
 		in.close();
 		lista.usun();
-		return 4;
+		return -1;
 	}
 	
 	lista.usun();
