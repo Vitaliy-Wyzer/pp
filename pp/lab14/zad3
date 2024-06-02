@@ -265,7 +265,7 @@ int main(int argc, char** argv) {
 		SStudent student = lista.maksymalna(lista);
 			if(!student.wypisz(student, fout)) {
 				cerr << "Napotkano blad podczas wypisywania danych studenta z najwieksza liczba niezaliczonych kursow.\n";
-				student.usun();
+				student.~SStudent();
 				return 3;
 			}
 	} else {
@@ -273,6 +273,7 @@ int main(int argc, char** argv) {
 		in.ignore();
 		in.clear();
 		in.close();
+		lista.~SLista();
 		return 4;
 	}
 	
@@ -282,6 +283,7 @@ int main(int argc, char** argv) {
 	for(unsigned int i=0; i<lista.liczba; ++i) {
 		lista.studenci[i].usun();
 	}
+	lista.~SLista();
 	in.close();
 
 	return 0;
