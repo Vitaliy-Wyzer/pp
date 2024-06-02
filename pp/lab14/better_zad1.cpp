@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <string>
 
-// Hope you read it
 using namespace std;
 
 struct SOsoba {
@@ -16,7 +15,6 @@ struct SOsoba {
 		
 	SOsoba wczytaj(ifstream&);
 	bool wypisz(SOsoba&, ostream&);
-	void usun(SOsoba&);
 };
 
 struct SLista {
@@ -24,13 +22,15 @@ struct SLista {
 	int liczba_osob;
 	SOsoba* osoby;
 	
+	SLista(): nazwa_listy(""), liczba_osob(0), osoby(nullptr) {}
+
 	bool wczytaj(SLista&, ifstream&);
 	bool wypisz(SLista&, ostream&);
 	SOsoba szukaj(SLista&, const unsigned int);
 	void podzial(SLista&, ofstream&, ofstream&);
-	// void usun
-	void usun() {
-		if(osoby) {
+
+	~SLista() {
+		if (osoby) {
 			delete[] osoby;
 			osoby = nullptr;
 		}
@@ -120,8 +120,6 @@ bool SLista::wczytaj(SLista& l, ifstream& fin) {
 		fin.ignore();
 		fin.clear();
 		fin.close();
-		// usun
-		l.usun();
 		return false;
 	}
 	fin >> l.nazwa_listy;
@@ -130,8 +128,6 @@ bool SLista::wczytaj(SLista& l, ifstream& fin) {
 		fin.ignore();
 		fin.clear();
 		fin.close();
-		// usun
-		l.usun();
 		return false;
 	}
 	fin >> l.liczba_osob;
@@ -140,8 +136,6 @@ bool SLista::wczytaj(SLista& l, ifstream& fin) {
 		fin.ignore();
 		fin.clear();
 		fin.close();
-		// usun
-		l.usun();
 		return false;
 	}
 	if(l.liczba_osob<=0) {
@@ -254,29 +248,21 @@ int main(int argc, char** argv) {
 			// debug
 			if(!osoba.wypisz(osoba)) {
 				cerr << "Napotkano blad podczas wypisywania danych osoby.\n";
-				lista.usun();
 				return -1;
 			}
 			lista.podzial(lista, out_k, out_m);
 		} else {
 			cerr << "Nie znaleziono osoby o podanym id.\n";
-			// usun
-			lista.usun();
 			return -1;
 		}
-		// usun
-		lista.usun();
 	} else {
 		// debug
 		cerr << "Nastapil blad podczas wczytywania listy.\n";
 		in.ignore();
 		in.clear();
 		in.close();
-		lista.usun();
 		return -1;
 	}
-	
-	lista.usun();
 	
 	in.close();
 	out_k.close();
