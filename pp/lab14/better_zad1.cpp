@@ -38,7 +38,7 @@ struct SLista {
 };
 
 SOsoba SOsoba::wczytaj(ifstream& fin) {
-	SOsoba os = SOsoba();
+	SOsoba os;
 	if(!fin.good()) {
 		cerr << "Blad strumienia wejsciowego.\n";
 		fin.ignore();
