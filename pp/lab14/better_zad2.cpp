@@ -6,8 +6,10 @@
 using namespace std;
 
 struct SOsoba {
-    string imie, znak_zodiaku;
-    unsigned int rok, szesliwa_liczba;
+    string imie;
+    unsigned int rok;
+    string znak_zodiaku;
+    unsigned int szesliwa_liczba;
 
     SOsoba(): imie(""), rok(0), znak_zodiaku(""), szesliwa_liczba(0) {}
 
@@ -94,7 +96,7 @@ bool SOsoba::wypisz(SOsoba& osoba, ostream& out) {
         out.clear();
         return 0;
     }
-    out << osoba.szesliwa_liczba << "\t";
+    out << osoba.szesliwa_liczba << "\n";
     if (!out.good()) {
         cerr << "Blad wypisywania liczby szesliwej.\n";
         out.clear();
@@ -134,12 +136,7 @@ bool SLista::wczytaj(SLista& lista, ifstream& fin) {
     }
     lista.osoby = new SOsoba[lista.liczba];
     for (unsigned int i=0; i<lista.liczba; i++) {
-        if(lista.osoby[i].wczytaj(lista.osoby[i], fin));
-            cerr << "Blad wczytywania do listy osob.\n";
-            fin.ignore();
-            fin.clear();
-            fin.close();
-            return 0;
+        lista.osoby[i].wczytaj(lista.osoby[i], fin);
     }
     return 1;
 }
@@ -158,10 +155,8 @@ bool SLista::wypisz(SLista& lista, ostream& out) {
         return 0;
     }
     for (unsigned int i=0; i<lista.liczba; i++) {
-        if (!lista.osoby[i].wypisz(lista.osoby[i]), out) {
-            cerr << "Blad wypisywania z listy osob.\n";
-            return 0;
-        }
+        lista.osoby[i].wypisz(lista.osoby[i], out);
+
     }
     return 0;
 }
