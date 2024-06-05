@@ -1,5 +1,3 @@
-// Tkachenko Vladyslav Gr. 6
-
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
