@@ -1,3 +1,5 @@
+// Autor: Debil
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
