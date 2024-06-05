@@ -1,10 +1,6 @@
-// Autor: Debil
-
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include <ctime>
-#include <cmath>
 
 using namespace std;
 
@@ -134,7 +130,8 @@ bool SAutor::wypisz(ostream& out){
 		cerr << "Blad wypisywania typu w plik output.txt" << endl;
 		out.clear();
 		return false;
-		}		
+		}
+	// no \t, but \n
 	out << SAutor::liczba << "\t";
 	if(!out.good()){
 		cerr << "Blad wypisywania liczby w plik output.txt" << endl;
@@ -143,13 +140,15 @@ bool SAutor::wypisz(ostream& out){
 		}	
 	
 	for(unsigned int i=0;i<SAutor::liczba;i++){
-		if(!(out << SAutor::ksiazki[0])){
+		// no tab
+		if(!(out << SAutor::ksiazki[0] << "\t")){
 			cerr << "Blad wypisywania " << endl;
 			out.clear();
 			return false;
 			}
-		}	
-			
+		}
+	// no endl
+	out << endl;	
 	return true;	
 	}
 
@@ -230,7 +229,8 @@ float SLista::srednia(){
 			
 			}
 		}
-	return s;	
+	// not divided by quantity
+	return (float)s/SLista::liczba_autorow;	
 	}
 
 
